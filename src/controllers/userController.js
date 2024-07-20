@@ -1,5 +1,26 @@
 import createHttpError from 'http-errors';
-import { updateUser } from '../services/userServices';
+import mongoose from 'mongoose';
+import { getOneUser, updateUser } from '../services/userServices';
+
+export const getUserByIdController = async (req, res, next) => {
+  const { userId } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(404).json({
+      data: 'ID not found',
+    });
+  }
+
+  const user = await getOneUser(userId);
+  if (!user) {
+    next(createHttpError(404, 'User not found'));
+    return;
+  }
+
+  res.status(200).json({
+    message: 'User information',
+    data: user,
+  });
+};
 
 export const updateUserController = async (req, res, next) => {
   const { userId } = req.params;
@@ -12,7 +33,7 @@ export const updateUserController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: 'Successfuly update user',
+    message: 'User information updated successfully',
     data: result.user,
   });
 };
