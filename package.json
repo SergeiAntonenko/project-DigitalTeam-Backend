@@ -5,15 +5,20 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon src/index.js",
+    "build": "npm run build-docs",
+    "dev": "nodemon ./src/index.js | pino-pretty",
+    "build-docs": "redocly bundle --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs",
     "lint": "eslint src/**/*.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Sergii_Antonenko <gerbar50@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@redocly/cli": "^1.18.0",
     "eslint": "^9.7.0",
     "globals": "^15.8.0",
     "nodemon": "^3.1.4",
@@ -33,6 +38,8 @@
     "mongoose": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.14",
-    "pino-http": "^10.2.0"
+    "pino-http": "^10.2.0",
+    "swagger-ui-express": "^5.0.1",
+    "yup": "^1.4.0"
   }
 }

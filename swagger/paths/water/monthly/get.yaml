@@ -1,0 +1,39 @@
+tags:
+  - Water
+summary: Get monthly water consumption
+description: Retrieve the amount of water consumed by the user for a specific month
+operationId: getMonthlyWaterConsumption
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: userId
+    required: true
+    schema:
+      type: string
+    description: ID of the user
+    example: '65ca67e7ae7f10c88b598384'
+  - in: query
+    name: month
+    required: true
+    schema:
+      type: string
+      format: date
+    description: Month of consumption
+    example: '2024-07'
+responses:
+  '200':
+    description: Monthly water consumption data
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            totalAmount:
+              type: integer
+              description: Total amount of water consumed (in ml)
+              example: 30000
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

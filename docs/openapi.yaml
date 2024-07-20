@@ -1,0 +1,65 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: AquaTrack app
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of AquaTrack app
+tags:
+  - name: Auth
+    description: Auth operations.
+  - name: Users
+    description: Users endpoints.
+  - name: Water
+    description: Water endpoints.
+servers:
+  - url: http://localhost:3000
+  - url: https://example.com/api/v1
+paths:
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login.yaml
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
+  /auth/refresh-token:
+    post:
+      $ref: ../swagger/paths/auth/refresh-token.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout.yaml
+  /auth/reset-password:
+    post:
+      $ref: ../swagger/paths/auth/reset-password.yaml
+  /users:
+    get:
+      $ref: ../swagger/paths/users/currentUser/get.yaml
+    post:
+      $ref: ../swagger/paths/users/currentUser/patch.yaml
+  /users/count:
+    get:
+      $ref: ../swagger/paths/users/count.yaml
+  /users/update:
+    get:
+      $ref: ../swagger/paths/users/update.yaml
+  /water:
+    post:
+      $ref: ../swagger/paths/water/post.yaml
+  /water/daily:
+    get:
+      $ref: ../swagger/paths/water/daily/get.yaml
+  /water/monthly:
+    get:
+      $ref: ../swagger/paths/water/monthly/get.yaml
+  /water/{recordId}:
+    patch:
+      $ref: ../swagger/paths/water/{recordId}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/{recordId}/delete.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

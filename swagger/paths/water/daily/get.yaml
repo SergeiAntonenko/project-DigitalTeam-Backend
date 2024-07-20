@@ -1,0 +1,32 @@
+tags:
+  - Water
+summary: Get daily water consumption
+description: Retrieve the amount of water consumed by the user for a specific day
+operationId: getDailyWaterConsumption
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: date
+    required: true
+    schema:
+      type: string
+      format: date
+    description: Date of consumption
+    example: '2024-07-19'
+responses:
+  '200':
+    description: Daily water consumption data
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            totalAmount:
+              type: integer
+              description: Total amount of water consumed (in ml)
+              example: 1500
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
