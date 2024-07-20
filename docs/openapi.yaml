@@ -63,16 +63,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  schemas:
-    auth:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        password:
-          type: string
-          format: password
-      required:
-        - email
-        - password

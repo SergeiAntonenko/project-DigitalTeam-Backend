@@ -892,67 +892,6 @@
         "bearerFormat": "JWT"
       }
     },
-    "schemas": {
-      "auth": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "format": "password"
-          }
-        },
-        "required": [
-          "email",
-          "password"
-        ]
-      },
-      "user": {
-        "type": "object",
-        "required": [
-          "name",
-          "password",
-          "gender"
-        ],
-        "properties": {
-          "name": {
-            "description": "User's name",
-            "type": "string",
-            "example": "Joe Biden"
-          },
-          "password": {
-            "description": "User's password",
-            "type": "string",
-            "example": "123456789"
-          },
-          "gender": {
-            "description": "User's gender identity",
-            "type": "string",
-            "enum": [
-              "man",
-              "woman"
-            ],
-            "example": "man"
-          },
-          "photo": {
-            "description": "Link to user's photo",
-            "oneOf": [
-              {
-                "type": "string",
-                "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
-              },
-              {
-                "type": "null",
-                "example": null
-              }
-            ]
-          }
-        }
-      }
-    },
     "responses": {
       "400": {
         "description": "Bad request, invalid token or password",
@@ -1059,6 +998,50 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "name",
+          "password",
+          "gender"
+        ],
+        "properties": {
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "Joe Biden"
+          },
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "example": "123456789"
+          },
+          "gender": {
+            "description": "User's gender identity",
+            "type": "string",
+            "enum": [
+              "man",
+              "woman"
+            ],
+            "example": "man"
+          },
+          "photo": {
+            "description": "Link to user's photo",
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+              },
+              {
+                "type": "null",
+                "example": null
+              }
+            ]
           }
         }
       }
