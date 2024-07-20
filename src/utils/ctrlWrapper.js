@@ -3,7 +3,6 @@ export const ctrlWrapper = (controller) => {
     try {
       await controller(req, res, next);
     } catch (err) {
-      console.log('Error in ctrlWrapper:', err);
       next(err);
     }
   };
