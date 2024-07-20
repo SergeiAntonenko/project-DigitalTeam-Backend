@@ -1,0 +1,38 @@
+tags:
+  - Water
+summary: Update a water record
+description: Update an existing record of consumed water
+operationId: updateWaterRecord
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: recordId
+    required: true
+    schema:
+      type: string
+    description: ID of the water record
+    example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          amount:
+            type: integer
+            description: Amount of water consumed (in ml)
+            example: 600
+          date:
+            type: string
+            format: date
+            description: Date of consumption
+            example: '2024-07-19'
+  required: false
+responses:
+  '200':
+    description: Successfully updated
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
