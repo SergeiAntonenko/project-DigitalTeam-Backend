@@ -18,6 +18,10 @@ export const checkWaterAmountMiddleware = (req, res, next) => {
     }
 
     if (value.localDate) {
+      if (typeof value.localDate !== 'string') {
+        return next(createHttpError(400, 'Invalid localDate format'));
+      }
+
       const normalizedDate = dateNormalizer(value.localDate);
       req.body = { ...value, localDate: normalizedDate };
     } else {
