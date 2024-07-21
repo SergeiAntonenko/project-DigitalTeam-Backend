@@ -11,34 +11,30 @@ import {
 import {
   checkAllWaterAmountMiddleware,
   checkWaterAmountMiddleware,
-  checkIdMiddleware,
 } from '../middlewares/waterMiddleware.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-// router.use(authenticate);
+router.use(authenticate);
 
-// Додає новий запис води на день
-router.post('/water/day', checkWaterAmountMiddleware, addWaterController);
-
-// Middleware для перевірки валідності ID
-router.use('water/day/:id', checkIdMiddleware);
+// Додає новий запис води
+router.post('/water', checkWaterAmountMiddleware, addWaterController);
 
 // Оновлює або видаляє запис води за ID
 router
-  .route('water/day/:id')
-  .put(checkWaterAmountMiddleware, updateWaterController)
+  .route('/water/:userId')
   .patch(checkWaterAmountMiddleware, updateWaterController)
   .delete(deleteWaterController);
 
 // Отримання загальних даних води за день і місяць
-router.post(
-  '/water/day/summary',
+router.get(
+  '/water/daily',
   checkAllWaterAmountMiddleware,
   getTotalDayWaterController,
 );
-router.post(
-  '/water/month/summary',
+router.get(
+  '/water/monthly',
   checkAllWaterAmountMiddleware,
   getTotalMonthWaterController,
 );
