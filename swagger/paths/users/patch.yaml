@@ -36,7 +36,6 @@ requestBody:
           - weight
           - dailyWaterGoal
           - avatar
-
 responses:
   '200':
     description: User information updated successfully

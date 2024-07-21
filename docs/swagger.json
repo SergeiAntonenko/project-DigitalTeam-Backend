@@ -342,6 +342,18 @@
         "summary": "Get current user information",
         "description": "Retrieve information about the currently authenticated user.",
         "operationId": "getCurrentUserInfo",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "User information",
@@ -414,6 +426,18 @@
         "summary": "Update user information",
         "description": "Update details of the currently authenticated user, including name, email, gender, weight, active time on sports, daily water goal, and avatar.",
         "operationId": "updateUserInformation",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
