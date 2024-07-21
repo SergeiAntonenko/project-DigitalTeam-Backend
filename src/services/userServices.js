@@ -18,6 +18,6 @@ export const updateUser = async (userId, payload, options = {}) => {
 
   return {
     user: user.value,
-    isNew: Boolean(contact?.lastErrorObject?.upserted),
+    isNew: Boolean(user?.lastErrorObject?.upserted),
   };
 };

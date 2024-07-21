@@ -5,7 +5,7 @@ import {
   updateUserController,
 } from '../controllers/userController';
 import { userValidateBody } from '../middlewares/userValidateBody';
-import { updateUserShema } from '../validation/updateUserShema';
+import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 import userValidMongoId from '../middlewares/userValidMongoId.js';
 import { authenticate } from '../middlewares/authenticate.js';
@@ -20,6 +20,6 @@ userRouter
   .get(ctrlWrapper(getUserByIdController))
   .patch(
     upload.single('avatar'),
-    userValidateBody(updateUserShema),
+    userValidateBody(updateUserSchema),
     ctrlWrapper(updateUserController),
   );
