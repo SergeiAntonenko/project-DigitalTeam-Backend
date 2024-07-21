@@ -8,7 +8,7 @@ import { userValidateBody } from '../middlewares/userValidateBody';
 import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 import userValidMongoId from '../middlewares/userValidMongoId.js';
-import { authenticate } from '../middlewares/authenticate.js';
+import { authenticate } from '../middlewares/authenticateUser.js';
 
 const usersRouter = Router();
 
