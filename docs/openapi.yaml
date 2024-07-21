@@ -7,8 +7,6 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: This is a documentation of AquaTrack app
 tags:
-  - name: Auth
-    description: Auth operations.
   - name: Users
     description: Users endpoints.
   - name: Water
@@ -17,46 +15,61 @@ servers:
   - url: http://localhost:3000
   - url: https://example.com/api/v1
 paths:
-  /auth/login:
+  /users/auth/register:
     post:
-      $ref: ../swagger/paths/auth/login.yaml
-  /auth/register:
+      $ref: ../swagger/paths/users/auth/register.yaml
+  /users/auth/login:
     post:
-      $ref: ../swagger/paths/auth/register.yaml
-  /auth/refresh-token:
+      $ref: ../swagger/paths/users/auth/login.yaml
+  /users/auth/reset-password:
     post:
-      $ref: ../swagger/paths/auth/refresh-token.yaml
-  /auth/logout:
+      $ref: ../swagger/paths/users/auth/reset-password.yaml
+  /users/auth/refresh-token:
     post:
-      $ref: ../swagger/paths/auth/logout.yaml
-  /auth/reset-password:
+      $ref: ../swagger/paths/users/auth/refresh-token.yaml
+  /users/auth/logout:
     post:
-      $ref: ../swagger/paths/auth/reset-password.yaml
-  /users:
+      $ref: ../swagger/paths/users/auth/logout.yaml
+
+  /users/{userId}:
     get:
-      $ref: ../swagger/paths/users/currentUser/get.yaml
-    post:
-      $ref: ../swagger/paths/users/currentUser/patch.yaml
+      security:
+        - bearerAuth: []
+      $ref: ../swagger/paths/users/{userId}/get.yaml
+    patch:
+      security:
+        - bearerAuth: []
+      $ref: ../swagger/paths/users/{userId}/patch.yaml
   /users/count:
     get:
+      security:
+        - bearerAuth: []
       $ref: ../swagger/paths/users/count.yaml
-  /users/update:
-    get:
-      $ref: ../swagger/paths/users/update.yaml
+
   /water:
     post:
+      security:
+        - bearerAuth: []
       $ref: ../swagger/paths/water/post.yaml
   /water/daily:
     get:
+      security:
+        - bearerAuth: []
       $ref: ../swagger/paths/water/daily/get.yaml
   /water/monthly:
     get:
+      security:
+        - bearerAuth: []
       $ref: ../swagger/paths/water/monthly/get.yaml
-  /water/{recordId}:
+  /water/{userId}:
     patch:
-      $ref: ../swagger/paths/water/{recordId}/patch.yaml
+      security:
+        - bearerAuth: []
+      $ref: ../swagger/paths/water/{userId}/patch.yaml
     delete:
-      $ref: ../swagger/paths/water/{recordId}/delete.yaml
+      security:
+        - bearerAuth: []
+      $ref: ../swagger/paths/water/{userId}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

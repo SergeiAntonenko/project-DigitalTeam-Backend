@@ -1,5 +1,5 @@
 tags:
-  - Auth
+  - Users
 summary: User registration
 operationId: userRegister
 description: 'Register a new user with email and password'
@@ -44,8 +44,8 @@ responses:
               type: string
               example: Successfully registered!
             data:
-              $ref: ../../components/schemas/user.yaml
+              $ref: ../../../components/schemas/user.yaml
   '400':
-    $ref: ../../components/responses/400.yaml
+    $ref: ../../../components/responses/400.yaml
   '401':
-    $ref: ../../components/responses/401.yaml
+    $ref: ../../../components/responses/401.yaml
