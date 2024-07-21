@@ -69,7 +69,7 @@ export const updateWaterController = async (req, res, next) => {
 
 export const getTotalDayWaterController = async (req, res, next) => {
   try {
-    const { allWaterCount, progress, isGoalAchieved } = await getTotalDayWater(
+    const { allWaterCount, feasibility, completed } = await getTotalDayWater(
       req.body,
       req.user,
     );
@@ -77,8 +77,8 @@ export const getTotalDayWaterController = async (req, res, next) => {
     res.status(200).json({
       msg: 'You get your total amount of water for this day!',
       waterRate: {
-        progress,
-        isGoalAchieved,
+        feasibility,
+        completed,
       },
       waterCount: allWaterCount,
     });
