@@ -5,21 +5,21 @@ import {
   updateUserController,
 } from '../controllers/userController';
 import { userValidateBody } from '../middlewares/userValidateBody';
-import { updateUserShema } from '../validation/updateUserShema';
+import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 import userValidMongoId from '../middlewares/userValidMongoId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
-const userRouter = Router();
+const usersRouter = Router();
 
-userRouter.use('/user', authenticate);
+usersRouter.use('/users', authenticate);
 
-userRouter
-  .route('/user/:userId')
+usersRouter
+  .route('/users/:userId')
   .use(userValidMongoId)
   .get(ctrlWrapper(getUserByIdController))
   .patch(
     upload.single('avatar'),
-    userValidateBody(updateUserShema),
+    userValidateBody(updateUserSchema),
     ctrlWrapper(updateUserController),
   );
