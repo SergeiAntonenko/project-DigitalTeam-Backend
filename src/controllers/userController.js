@@ -1,6 +1,12 @@
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import { getOneUser, updateUser } from '../services/userServices.js';
+// import { UsersCollection } from '../db/models/usersCollection.js';
+
+// export const getAllUsersController = async (res, req) => {
+//   const users = await UsersCollection.find();
+//   return users;
+// };
 
 export const getUserByIdController = async (req, res, next) => {
   const { userId } = req.params;

@@ -5,7 +5,16 @@ description: Update details of the currently authenticated user, including name,
 operationId: updateUserInformation
 security:
   - bearerAuth: []
+parameters:
+  - name: userId
+    in: path
+    description: ID of the user to update
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
 requestBody:
+  required: true
   content:
     application/json:
       schema:
@@ -13,11 +22,11 @@ requestBody:
         properties:
           name:
             type: string
-            description: Name of the user
+            example: Joi Biden
           email:
             type: string
             format: email
-            description: Email address of the user
+            example: john.doe@example.com
           gender:
             type: string
             enum:
@@ -25,19 +34,27 @@ requestBody:
               - female
               - other
             description: Gender of the user
+            example: male
           weight:
             type: integer
-            description: Weight of the user in kilograms
+            format: float
+            description: 'User`s weight in kg'
+            example: '75.5'
           activeTime:
             type: integer
-            description: Active time in sports in minutes
+            format: float
+            description: 'Active time for sports in hours'
+            example: '1.5'
           dailyWaterGoal:
             type: integer
+            format: float
             description: Daily water intake goal in milliliters
+            example: 2.0
           avatar:
             type: string
             format: uri
             description: URL of the user's avatar
+            example: 'https://example.com/avatar.png'
         required:
           - name
           - email
@@ -49,11 +66,15 @@ requestBody:
 responses:
   '200':
     description: User information updated successfully
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/user.yaml
   '400':
-    $ref: ../../components/responses/400.yaml
+    $ref: ../../../components/responses/400.yaml
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
   '404':
-    $ref: '../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'
   '500':
-    $ref: ../../components/responses/500.yaml
+    $ref: ../../../components/responses/500.yaml

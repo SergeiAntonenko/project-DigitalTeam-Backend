@@ -23,7 +23,7 @@ waterRouter.post('/', checkWaterAmountMiddleware, addWaterController);
 
 // Оновлює або видаляє запис води за ID
 waterRouter
-  .route('/:userId')
+  .route('/:usersId')
   .patch(checkWaterAmountMiddleware, updateWaterController)
   .delete(deleteWaterController);
 
