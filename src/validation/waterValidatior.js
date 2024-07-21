@@ -1,16 +1,15 @@
 import Joi from 'joi';
 import { joiValidator } from '../utils/joiValidator.js';
+import { date } from '../constants/regex.js';
+import { time } from '../constants/regex.js';
 
 export const checkWaterAmountValidator = joiValidator((data) =>
   Joi.object()
     .options({ abortEarly: false })
     .keys({
-      localDate: Joi.date().iso().required(),
-      localTime: Joi.string()
-        .length(5)
-        .required()
-        .pattern(/^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/),
-      waterValue: Joi.number().min(0).required(),
+      localDate: Joi.string().pattern(new RegExp(date)).length(10),
+      localTime: Joi.string().pattern(new RegExp(time)).length(5),
+      waterValue: Joi.number().required(),
     })
     .validate(data),
 );
@@ -19,7 +18,7 @@ export const checkDateTotalWaterValidator = joiValidator((data) =>
   Joi.object()
     .options({ abortEarly: false })
     .keys({
-      localDate: Joi.date().iso().required(),
+      localDate: Joi.string().pattern(new RegExp(date)).length(10),
     })
     .validate(data),
 );

@@ -11,6 +11,9 @@ export const localTime = () => {
 };
 
 export const dateNormalizer = (dateValue) => {
+  if (typeof dateValue !== 'string') {
+    throw new TypeError('dateValue must be a string');
+  }
   return dateValue.split(/[\\/.\-]/).join('.');
 };
 
