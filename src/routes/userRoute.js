@@ -23,3 +23,5 @@ usersRouter
     userValidateBody(updateUserSchema),
     ctrlWrapper(updateUserController),
   );
+
+export default usersRouter;
