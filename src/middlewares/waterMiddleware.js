@@ -19,7 +19,7 @@ export const checkWaterAmountMiddleware = (req, res, next) => {
 
     if (value.localDate) {
       if (typeof value.localDate !== 'string') {
-        return next(createHttpError(400, 'Invalid localDate format'));
+        return next(createHttpError(400, 'Invalid date format (YY-MM-DD)'));
       }
 
       const normalizedDate = dateNormalizer(value.localDate);
@@ -57,16 +57,19 @@ export const checkIdMiddleware = async (req, res, next) => {
 
 export const checkAllWaterAmountMiddleware = async (req, res, next) => {
   try {
-    const { value, err } = checkDateTotalWaterValidator(req.body);
-    if (err) {
-      return next(createHttpError(400, 'Bad Request', { errors: err }));
+    const { value, error } = checkDateTotalWaterValidator(req.body);
+
+    if (error) {
+      return next(
+        createHttpError(400, 'Bad Request', { errors: error.details }),
+      );
     }
 
     if (value.localDate) {
       const normalizedDate = dateNormalizer(value.localDate);
-      req.body = { localDate: normalizedDate };
+      req.body.localDate = normalizedDate;
     } else {
-      req.body = { localDate: localDate() };
+      req.body.localDate = localDate();
     }
 
     next();
