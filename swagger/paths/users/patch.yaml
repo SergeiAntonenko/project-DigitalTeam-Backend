@@ -1,8 +1,8 @@
 tags:
   - Users
-summary: Update user information
-description: Update details of the currently authenticated user, including name, email, gender, weight, active time on sports, daily water goal, and avatar.
-operationId: updateUserInformation
+summary: Update current user information
+description: Update information for the currently authenticated user.
+operationId: updateCurrentUser
 security:
   - bearerAuth: []
 requestBody:
@@ -13,37 +13,27 @@ requestBody:
         properties:
           name:
             type: string
-            description: Name of the user
           email:
             type: string
             format: email
-            description: Email address of the user
           gender:
             type: string
             enum:
               - male
               - female
               - other
-            description: Gender of the user
           weight:
             type: integer
-            description: Weight of the user in kilograms
-          activeTime:
-            type: integer
-            description: Active time in sports in minutes
           dailyWaterGoal:
             type: integer
-            description: Daily water intake goal in milliliters
           avatar:
             type: string
             format: uri
-            description: URL of the user's avatar
         required:
           - name
           - email
           - gender
           - weight
-          - activeTime
           - dailyWaterGoal
           - avatar
 responses:
@@ -52,8 +42,8 @@ responses:
   '400':
     $ref: ../../components/responses/400.yaml
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: ../../components/responses/401.yaml
   '404':
-    $ref: '../../components/responses/404.yaml'
+    $ref: ../../components/responses/404.yaml
   '500':
     $ref: ../../components/responses/500.yaml
