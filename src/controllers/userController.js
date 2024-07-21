@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
-import { getOneUser, updateUser } from '../services/userServices';
+import { getOneUser, updateUser } from '../services/userServices.js';
 
 export const getUserByIdController = async (req, res, next) => {
   const { userId } = req.params;
