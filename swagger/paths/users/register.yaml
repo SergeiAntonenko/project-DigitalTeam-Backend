@@ -1,8 +1,8 @@
 tags:
-  - Users
-summary: User login
-operationId: userLogin
-description: 'Log in a user with email and password'
+  - Auth
+summary: User registration
+operationId: userRegister
+description: 'Register a new user with email and password'
 security:
   - bearerAuth: []
 requestBody:
@@ -25,8 +25,8 @@ requestBody:
             format: password
             example: 'password123'
 responses:
-  '200':
-    description: 'User successfully logged in'
+  '201':
+    description: 'User successfully registered'
     content:
       application/json:
         schema:
@@ -34,16 +34,17 @@ responses:
           required:
             - status
             - message
-            - token
+            - data
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
-              example: Successfully logged in!
-            token:
-              type: string
-              example: 'Bearer token_string'
+              example: Successfully registered!
+            data:
+              $ref: ../../components/schemas/user.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
   '401':
-    $ref: ../../../components/responses/401.yaml
+    $ref: ../../components/responses/401.yaml

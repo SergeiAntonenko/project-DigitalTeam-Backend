@@ -5,14 +5,6 @@ description: Update details of the currently authenticated user, including name,
 operationId: updateUserInformation
 security:
   - bearerAuth: []
-parameters:
-  - name: userId
-    in: path
-    description: ID of the user to update
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
 requestBody:
   required: true
   content:
@@ -22,7 +14,7 @@ requestBody:
         properties:
           name:
             type: string
-            example: Joi Biden
+            example: Joi Buben
           email:
             type: string
             format: email
@@ -62,19 +54,18 @@ requestBody:
           - weight
           - activeTime
           - dailyWaterGoal
-          - avatar
 responses:
   '200':
     description: User information updated successfully
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/user.yaml
+          $ref: ../../components/schemas/user.yaml
   '400':
-    $ref: ../../../components/responses/400.yaml
+    $ref: ../../components/responses/400.yaml
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: ../../components/responses/401.yaml
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: ../../components/responses/404.yaml
   '500':
-    $ref: ../../../components/responses/500.yaml
+    $ref: ../../components/responses/500.yaml

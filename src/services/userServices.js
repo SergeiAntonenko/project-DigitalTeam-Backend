@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
-import { UsersCollection } from '../db/models/usersCollection.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const getOneUser = async (userId) => {
   const user = await UsersCollection.findById(userId);
@@ -17,7 +17,7 @@ export const updateUser = async (userId, payload, options = {}) => {
     },
   );
   if (!user || !user.value) {
-    throw createHttpError(404, 'User not foun');
+    throw createHttpError(404, 'User not found');
   }
 
   return {
