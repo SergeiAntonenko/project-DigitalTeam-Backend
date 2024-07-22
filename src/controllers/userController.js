@@ -8,7 +8,7 @@ export const getAllUsersController = async (req, res, next) => {
     const count = await UsersCollection.countDocuments();
     res.status(200).json({
       message: 'Total number of registered users',
-      totalUsers: { count },
+      totalUsers: count,
     });
   } catch (err) {
     next(createHttpError(500, 'Internal server error'));
