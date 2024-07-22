@@ -35,6 +35,7 @@ responses:
             - status
             - message
             - token
+            - id
           properties:
             status:
               type: integer
@@ -45,5 +46,9 @@ responses:
             token:
               type: string
               example: 'Bearer token_string'
+            id:
+              type: string
+              description: "User's ID"
+              example: '65ca67e7ae7f10c88b598384'
   '401':
     $ref: ../../components/responses/401.yaml
