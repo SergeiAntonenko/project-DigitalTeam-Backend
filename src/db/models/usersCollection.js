@@ -8,15 +8,19 @@ const usersSchema = new Schema(
     },
     email: {
       type: String,
-      // required: true,
+      required: true,
     },
     gender: {
       type: String,
-      enum: ['men', 'women', 'other'],
+      enum: ['male', 'woman', 'other'],
       required: true,
-      default: 'men',
+      default: 'woman',
     },
     weight: {
+      type: Number,
+      required: true,
+    },
+    activeTime: {
       type: Number,
       required: true,
     },

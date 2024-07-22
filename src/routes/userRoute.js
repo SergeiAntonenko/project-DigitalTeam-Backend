@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
-  // getAllUsersController,
+  getAllUsersController,
   getUserByIdController,
   updateUserController,
 } from '../controllers/userController.js';
@@ -13,18 +13,24 @@ import { authenticate } from '../middlewares/authenticateUser.js';
 
 const usersRouter = Router();
 
-usersRouter.use('/:userId', userValidMongoId);
-
 usersRouter.use('/', authenticate);
 
-// usersRouter.get('/', ctrlWrapper(getAllUsersController));
+usersRouter.get('/count', ctrlWrapper(getAllUsersController));
 
-usersRouter.get('/:userId', ctrlWrapper(getUserByIdController));
+usersRouter.use('/:userId', userValidMongoId);
+
+usersRouter.get('/:current', ctrlWrapper(getUserByIdController));
 
 usersRouter.patch(
-  '/:userId',
+  '/:update',
   upload.single('avatar'),
   userValidateBody(updateUserSchema),
+  ctrlWrapper(updateUserController),
+);
+
+usersRouter.patch(
+  '/:avatar',
+  upload.single('avatar'),
   ctrlWrapper(updateUserController),
 );
 
