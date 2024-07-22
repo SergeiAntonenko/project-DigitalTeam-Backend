@@ -3,8 +3,6 @@ import { loginUser } from '../services/authUser.js';
 
 import { logoutUser } from '../services/authUser.js';
 
-import { UsersCollection } from '../db/models/usersCollection.js';
-
 import { ONE_DAY } from '../constants/index.js';
 
 import { refreshUsersSession } from '../services/authUser.js';
@@ -52,22 +50,6 @@ export const logoutUserController = async (req, res) => {
   res.clearCookie('refreshToken');
 
   res.status(204).send();
-};
-
-export const getAllUsers = async (req, res) => {
-  try {
-    // Підрахунок загальної кількості користувачів у базі даних
-    const totalUsers = await UsersCollection.countDocuments();
-
-    // Отримання списку користувачів з полями _id та name
-    const users = await UsersCollection.find({}, '_id name');
-
-    // Відправка відповіді з кількістю користувачів та списком користувачів
-    res.status(200).json({ totalUsers, users });
-  } catch (error) {
-    // Обробка помилок
-    res.status(500).json({ message: 'Server Error', error });
-  }
 };
 
 const setupSession = (res, session) => {
