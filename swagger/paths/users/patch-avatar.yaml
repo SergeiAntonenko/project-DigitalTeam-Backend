@@ -1,37 +1,36 @@
-patch:
-  tags:
-    - Users
-  summary: Update user avatar
-  description: Update details of the currently authenticated user avatar.
-  operationId: updateUserAvatar
-  security:
-    - bearerAuth: []
-  requestBody:
-    required: true
+tags:
+  - Users
+summary: Update user avatar
+description: Update details of the currently authenticated user avatar.
+operationId: updateUserAvatar
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          avatar:
+            type: string
+            format: uri
+            description: URL of the user's avatar
+            example: 'https://example.com/avatar.png'
+        required:
+          - avatar
+responses:
+  '200':
+    description: User information updated successfully
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            avatar:
-              type: string
-              format: uri
-              description: URL of the user's avatar
-              example: 'https://example.com/avatar.png'
-          required:
-            - avatar
-  responses:
-    '200':
-      description: User information updated successfully
-      content:
-        application/json:
-          schema:
-            $ref: ../../components/schemas/user.yaml
-    '400':
-      $ref: ../../components/responses/400.yaml
-    '401':
-      $ref: ../../components/responses/401.yaml
-    '404':
-      $ref: ../../components/responses/404.yaml
-    '500':
-      $ref: ../../components/responses/500.yaml
+          $ref: ../../components/schemas/user.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

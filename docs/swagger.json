@@ -160,7 +160,8 @@
                   "required": [
                     "status",
                     "message",
-                    "token"
+                    "token",
+                    "id"
                   ],
                   "properties": {
                     "status": {
@@ -174,6 +175,11 @@
                     "token": {
                       "type": "string",
                       "example": "Bearer token_string"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "User's ID",
+                      "example": "65ca67e7ae7f10c88b598384"
                     }
                   }
                 }
@@ -407,23 +413,18 @@
       }
     },
     "/users/update": {
-      "security": [
-        {
-          "bearerAuth": []
-        }
-      ],
       "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Users"
         ],
         "summary": "Update user information",
         "description": "Update details of the currently authenticated user, including name, email, gender, weight, active time on sports, daily water goal, and avatar.",
         "operationId": "updateUserInformation",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -481,8 +482,7 @@
                   "gender",
                   "weight",
                   "activeTime",
-                  "dailyWaterGoal",
-                  "avatar"
+                  "dailyWaterGoal"
                 ]
               }
             }
@@ -515,23 +515,18 @@
       }
     },
     "/users/avatar": {
-      "security": [
-        {
-          "bearerAuth": []
-        }
-      ],
       "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Users"
         ],
         "summary": "Update user avatar",
         "description": "Update details of the currently authenticated user avatar.",
         "operationId": "updateUserAvatar",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
