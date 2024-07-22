@@ -3,9 +3,13 @@ import { loginUser } from '../services/authUser.js';
 
 import { logoutUser } from '../services/authUser.js';
 
+import { UsersCollection } from '../db/models/usersCollection.js';
+
 import { ONE_DAY } from '../constants/index.js';
 
 import { refreshUsersSession } from '../services/authUser.js';
+
+import { requestResetToken } from '../services/authUser.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -50,6 +54,22 @@ export const logoutUserController = async (req, res) => {
   res.status(204).send();
 };
 
+export const getAllUsers = async (req, res) => {
+  try {
+    // Підрахунок загальної кількості користувачів у базі даних
+    const totalUsers = await UsersCollection.countDocuments();
+
+    // Отримання списку користувачів з полями _id та name
+    const users = await UsersCollection.find({}, '_id name');
+
+    // Відправка відповіді з кількістю користувачів та списком користувачів
+    res.status(200).json({ totalUsers, users });
+  } catch (error) {
+    // Обробка помилок
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -75,5 +95,14 @@ export const refreshUserSessionController = async (req, res) => {
     data: {
       accessToken: session.accessToken,
     },
+  });
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email);
+  res.json({
+    message: 'Reset password email was successfully sent!',
+    status: 200,
+    data: {},
   });
 };
