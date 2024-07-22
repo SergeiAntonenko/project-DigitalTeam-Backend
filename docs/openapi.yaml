@@ -42,6 +42,10 @@ paths:
     security:
       - bearerAuth: []
     $ref: ../swagger/paths/users/patch.yaml
+  /users/avatar:
+    security:
+      - bearerAuth: []
+    $ref: ../swagger/paths/users/patch-avatar.yaml
   /users/count:
     get:
       security:

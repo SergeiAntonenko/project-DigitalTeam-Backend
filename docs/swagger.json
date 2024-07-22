@@ -514,6 +514,71 @@
         }
       }
     },
+    "/users/avatar": {
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user avatar",
+        "description": "Update details of the currently authenticated user avatar.",
+        "operationId": "updateUserAvatar",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of the user's avatar",
+                    "example": "https://example.com/avatar.png"
+                  }
+                },
+                "required": [
+                  "avatar"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User information updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/users/count": {
       "get": {
         "security": [
@@ -748,7 +813,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -807,7 +872,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
