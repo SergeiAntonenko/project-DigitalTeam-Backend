@@ -11,6 +11,7 @@ import {
 import {
   checkAllWaterAmountMiddleware,
   checkWaterAmountMiddleware,
+  checkIdMiddleware,
 } from '../middlewares/waterMiddleware.js';
 import { authenticate } from '../middlewares/authenticateUser.js';
 
@@ -20,6 +21,8 @@ waterRouter.use(authenticate);
 
 // Додає новий запис води
 waterRouter.post('/', checkWaterAmountMiddleware, addWaterController);
+
+waterRouter.use('/:userId', checkIdMiddleware);
 
 // Оновлює або видаляє запис води за ID
 waterRouter
