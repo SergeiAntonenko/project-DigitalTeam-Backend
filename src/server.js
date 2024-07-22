@@ -7,6 +7,7 @@ import { env } from './utils/env.js';
 import { UPLOAD_DIR } from './users/index.js';
 import router from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 dotenv.config();
 const PORT = Number(env('PORT', '3000'));
@@ -23,6 +24,7 @@ export const setupServer = () => {
   );
 
   app.use(cors());
+  app.use(cookieParser());
 
   app.use(
     pino({
@@ -32,7 +34,7 @@ export const setupServer = () => {
     }),
   );
 
-  app.use(cookieParser());
+  app.use('/api-docs', swaggerDocs());
 
   app.use(router);
 
