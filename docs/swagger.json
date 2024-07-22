@@ -19,6 +19,10 @@
   ],
   "tags": [
     {
+      "name": "Auth",
+      "description": "Auth endpoints."
+    },
+    {
       "name": "Users",
       "description": "Users endpoints."
     },
@@ -28,10 +32,10 @@
     }
   ],
   "paths": {
-    "/users/auth/register": {
+    "/users/register": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "User registration",
         "operationId": "userRegister",
@@ -48,7 +52,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "name",
                   "email",
                   "password"
                 ],
@@ -107,10 +110,10 @@
         }
       }
     },
-    "/users/auth/login": {
+    "/users/login": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "User login",
         "operationId": "userLogin",
@@ -183,10 +186,10 @@
         }
       }
     },
-    "/users/auth/reset-password": {
+    "/users/reset-password": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Reset password",
         "description": "Resets the user's password using the token sent via email.",
@@ -236,10 +239,10 @@
         }
       }
     },
-    "/users/auth/refresh-token": {
+    "/users/refresh-token": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Refresh the authentication token",
         "description": "Obtain a new access token and refresh token",
@@ -303,10 +306,10 @@
         }
       }
     },
-    "/users/auth/logout": {
+    "/users/logout": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Log out of the application",
         "description": "Invalidate the current session and tokens",
@@ -329,7 +332,7 @@
         }
       }
     },
-    "/users/{userId}": {
+    "/users/current": {
       "get": {
         "security": [
           {
@@ -342,18 +345,6 @@
         "summary": "Get current user information",
         "description": "Retrieve information about the currently authenticated user.",
         "operationId": "getCurrentUserInfo",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "ID of the user to update",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "User information",
@@ -413,29 +404,24 @@
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/users/update": {
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
       "patch": {
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "tags": [
           "Users"
         ],
         "summary": "Update user information",
         "description": "Update details of the currently authenticated user, including name, email, gender, weight, active time on sports, daily water goal, and avatar.",
         "operationId": "updateUserInformation",
-        "parameters": [
+        "security": [
           {
-            "name": "userId",
-            "in": "path",
-            "description": "ID of the user to update",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -528,6 +514,71 @@
         }
       }
     },
+    "/users/avatar": {
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user avatar",
+        "description": "Update details of the currently authenticated user avatar.",
+        "operationId": "updateUserAvatar",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of the user's avatar",
+                    "example": "https://example.com/avatar.png"
+                  }
+                },
+                "required": [
+                  "avatar"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User information updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/users/count": {
       "get": {
         "security": [
@@ -571,7 +622,7 @@
         }
       }
     },
-    "/water": {
+    "/water/add": {
       "post": {
         "security": [
           {
@@ -746,7 +797,7 @@
         }
       }
     },
-    "/water/{userId}": {
+    "/water/{id}": {
       "patch": {
         "security": [
           {
@@ -762,7 +813,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -821,7 +872,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
