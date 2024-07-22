@@ -434,7 +434,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "example": "Joi Biden"
+                    "example": "Joi Buben"
                   },
                   "email": {
                     "type": "string",
@@ -910,7 +910,7 @@
           "name": {
             "description": "User's name",
             "type": "string",
-            "example": "Joe Biden"
+            "example": "Joe Buben"
           },
           "password": {
             "description": "User's password",
@@ -924,7 +924,7 @@
               "man",
               "woman"
             ],
-            "example": "man"
+            "example": "woman"
           },
           "photo": {
             "description": "Link to user's photo",

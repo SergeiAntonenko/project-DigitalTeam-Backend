@@ -12,7 +12,7 @@ properties:
   name:
     description: "User's name"
     type: string
-    example: Joe Biden
+    example: Joe Buben
   password:
     description: "User's password"
     type: string
@@ -23,7 +23,7 @@ properties:
     enum:
       - man
       - woman
-    example: man
+    example: woman
   photo:
     description: "Link to user's photo"
     oneOf:
