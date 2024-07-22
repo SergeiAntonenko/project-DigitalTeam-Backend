@@ -69,17 +69,14 @@ export const updateWaterController = async (req, res, next) => {
 
 export const getTotalDayWaterController = async (req, res, next) => {
   try {
-    const { allWaterCount, feasibility, completed } = await getTotalDayWater(
+    const { allWaterCount, totalDay } = await getTotalDayWater(
       req.body,
       req.user,
     );
 
     res.status(200).json({
       msg: 'You get your total amount of water for this day!',
-      waterRate: {
-        feasibility,
-        completed,
-      },
+      totalDay,
       waterCount: allWaterCount,
     });
   } catch (e) {
@@ -89,11 +86,15 @@ export const getTotalDayWaterController = async (req, res, next) => {
 
 export const getTotalMonthWaterController = async (req, res, next) => {
   try {
-    const allWaterCount = await getTotalMonthWater(req.body, req.user);
+    const { totalMonth, waterCount } = await getTotalMonthWater(
+      req.body,
+      req.user,
+    );
 
     res.status(200).json({
       msg: 'You get your total amount of water for this month!',
-      waterCount: allWaterCount,
+      totalMonth,
+      waterCount,
     });
   } catch (e) {
     next(e);
