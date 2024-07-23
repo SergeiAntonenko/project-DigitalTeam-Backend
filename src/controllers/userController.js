@@ -2,6 +2,7 @@ import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import { getOneUser, updateUser } from '../services/userServices.js';
 import { UsersCollection } from '../db/models/user.js';
+import { saveFile } from '../utils/saveFile.js';
 
 export const getAllUsersController = async (req, res, next) => {
   try {
@@ -39,8 +40,15 @@ export const getUserByIdController = async (req, res, next) => {
 
 export const updateUserController = async (req, res, next) => {
   const { update } = req.params;
+  const photo = req.file;
+
+  if (photo) {
+    // req.body.avatar = photo.path;
+    await saveFile(photo);
+  }
 
   const result = await updateUser(update, req.body);
+
   if (!result) {
     next(createHttpError(404, 'User not found'));
     return;

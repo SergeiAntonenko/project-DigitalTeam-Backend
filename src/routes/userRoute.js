@@ -28,10 +28,4 @@ usersRouter.patch(
   ctrlWrapper(updateUserController),
 );
 
-usersRouter.patch(
-  '/:avatar',
-  upload.single('avatar'),
-  ctrlWrapper(updateUserController),
-);
-
 export default usersRouter;

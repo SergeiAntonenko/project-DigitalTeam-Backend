@@ -5,6 +5,7 @@ export const updateUserSchema = Joi.object({
   email: Joi.string().email().optional(),
   gender: Joi.string().valid('male', 'woman', 'other').optional(),
   weight: Joi.number().min(0).optional(),
+  avatar: Joi.string().optional(),
   activeTime: Joi.number().min(0).optional(),
   dailyWaterGoal: Joi.number().min(0).optional(),
 });
