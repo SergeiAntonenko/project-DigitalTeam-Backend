@@ -3,6 +3,7 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   getAllUsersController,
   getUserByIdController,
+  updatePhotoUserController,
   updateUserController,
 } from '../controllers/userController.js';
 import { userValidateBody } from '../middlewares/userValidateBody.js';
@@ -31,7 +32,7 @@ usersRouter.patch(
 usersRouter.patch(
   '/:avatar',
   upload.single('avatar'),
-  ctrlWrapper(updateUserController),
+  ctrlWrapper(updatePhotoUserController),
 );
 
 export default usersRouter;
