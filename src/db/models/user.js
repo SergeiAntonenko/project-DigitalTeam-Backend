@@ -35,7 +35,7 @@ const usersSchema = new Schema(
     },
     userId: {
       type: Schema.ObjectId,
-      required: true,
+      required: false,
     },
     avatar: {
       type: String,
