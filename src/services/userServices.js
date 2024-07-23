@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
 import { UsersCollection } from '../db/models/user.js';
-import { saveFile } from '../utils/saveFile.js';
+// import { saveFile } from '../utils/saveFile.js';
 
 export const getOneUser = async (userId) => {
   const user = await UsersCollection.findById(userId);
@@ -25,20 +25,4 @@ export const updateUser = async (userId, payload, options = {}) => {
     user: user.value,
     isNew: Boolean(user?.lastErrorObject?.upserted),
   };
-};
-
-export const upsertUsers = async ({ photo, ...payload }, userId) => {
-  let url;
-
-  if (photo) {
-    url = await saveFile(photo);
-  }
-
-  const user = await UsersCollection.create({
-    ...payload,
-    userId: userId,
-    photo: url,
-  });
-
-  return user;
 };

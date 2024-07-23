@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 import {
   getOneUser,
   updateUser,
-  upsertUsers,
+  // upsertUsers,
 } from '../services/userServices.js';
 import { UsersCollection } from '../db/models/user.js';
+import { saveFile } from '../utils/saveFile.js';
 
 export const getAllUsersController = async (req, res, next) => {
   try {
@@ -45,16 +46,12 @@ export const updateUserController = async (req, res, next) => {
   const { update } = req.params;
   const photo = req.file;
 
-  let photoUrl;
-
   if (photo) {
-    photoUrl = await upsertUsers(photo);
+    // req.body.avatar = photo.path;
+    await saveFile(photo);
   }
 
-  const result = await updateUser(update, {
-    ...req.body,
-    photo: photoUrl,
-  });
+  const result = await updateUser(update, req.body);
 
   if (!result) {
     next(createHttpError(404, 'User not found'));
