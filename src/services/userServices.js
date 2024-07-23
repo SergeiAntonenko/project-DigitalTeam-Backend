@@ -1,6 +1,5 @@
 import createHttpError from 'http-errors';
 import { UsersCollection } from '../db/models/user.js';
-// import { saveFile } from '../utils/saveFile.js';
 
 export const getOneUser = async (userId) => {
   const user = await UsersCollection.findById(userId);

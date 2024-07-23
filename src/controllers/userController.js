@@ -1,10 +1,6 @@
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
-import {
-  getOneUser,
-  updateUser,
-  // upsertUsers,
-} from '../services/userServices.js';
+import { getOneUser, updateUser } from '../services/userServices.js';
 import { UsersCollection } from '../db/models/user.js';
 import { saveFile } from '../utils/saveFile.js';
 
