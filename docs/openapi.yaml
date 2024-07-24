@@ -14,8 +14,7 @@ tags:
   - name: Water
     description: Water endpoints.
 servers:
-  - url: http://localhost:3000
-  - url: https://example.com/api/v1
+  - url: https://project-digitalteam-backend.onrender.com/
 paths:
   /users/register:
     post:
@@ -50,10 +49,7 @@ paths:
       $ref: ../swagger/paths/users/patch-avatar.yaml
   /users/count:
     get:
-      security:
-        - bearerAuth: []
       $ref: ../swagger/paths/users/count.yaml
-
   /water/add:
     post:
       security:

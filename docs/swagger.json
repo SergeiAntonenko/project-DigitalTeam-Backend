@@ -11,10 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
-    {
-      "url": "https://example.com/api/v1"
+      "url": "https://project-digitalteam-backend.onrender.com/"
     }
   ],
   "tags": [
@@ -576,17 +573,13 @@
     },
     "/users/count": {
       "get": {
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "tags": [
           "Users"
         ],
         "summary": "Get total number of registered users",
         "description": "Retrieve the total number of registered users in the application.",
         "operationId": "getTotalNumberOfUsers",
+        "security": [],
         "responses": {
           "200": {
             "description": "Total number of registered users",
