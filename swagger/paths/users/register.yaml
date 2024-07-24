@@ -23,6 +23,8 @@ requestBody:
             description: "User's password"
             type: string
             format: password
+            minLength: 6
+            maxLength: 50
             example: 'password123'
 responses:
   '201':
