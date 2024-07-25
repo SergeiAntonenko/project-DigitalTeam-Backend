@@ -47,7 +47,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auth"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Auth"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "email",
+                      "password"
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -108,7 +120,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auth"
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password",
+                    "format": "password",
+                    "example": "password123"
+                  }
+                }
               }
             }
           }
@@ -823,11 +852,12 @@
       },
       "Auth": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
         "properties": {
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "Joe"
+          },
           "email": {
             "description": "User's email",
             "type": "string",
