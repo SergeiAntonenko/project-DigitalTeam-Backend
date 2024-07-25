@@ -10,7 +10,13 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: ../../components/schemas/Auth.yaml
+        allOf:
+          - $ref: '../../components/schemas/Auth.yaml'
+          - type: object
+            required:
+              - name
+              - email
+              - password
 responses:
   '201':
     description: 'User successfully registered'
