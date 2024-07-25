@@ -14,7 +14,7 @@ tags:
   - name: Water
     description: Water endpoints.
 servers:
-  - url: https://project-digitalteam-backend.onrender.com/
+  - url: https://project-digitalteam-backend.onrender.com
 paths:
   /users/register:
     post:
@@ -80,3 +80,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+  schemas:
+    User:
+      $ref: '../swagger/components/schemas/User.yaml'
+    Auth:
+      $ref: '../swagger/components/schemas/Auth.yaml'
+    Water:
+      $ref: '../swagger/components/schemas/Water.yaml'
