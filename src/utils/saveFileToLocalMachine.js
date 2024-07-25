@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { ENV_VARS, UPLOAD_DIR } from '../constants/index.js';
+import { ENV_VARS, UPLOAD_DIR } from '../users/index.js';
 import { env } from './env.js';
 
 export const saveFileToLocalMachine = async (file) => {

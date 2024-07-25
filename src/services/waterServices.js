@@ -1,8 +1,11 @@
 import { Water } from '../db/models/waterModel.js';
 
 export const localDate = () => {
-  const date = new Date();
-  return date.toLocaleDateString();
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  return `${dd}.${mm}.${yyyy}`;
 };
 
 export const localTime = () => {
@@ -11,6 +14,9 @@ export const localTime = () => {
 };
 
 export const dateNormalizer = (dateValue) => {
+  if (typeof dateValue !== 'string') {
+    throw new TypeError('dateValue must be a string');
+  }
   return dateValue.split(/[\\/.\-]/).join('.');
 };
 
@@ -63,18 +69,16 @@ export const updateWaterCountId = async (id, waterData) => {
 export const getTotalDayWater = async (date, user) => {
   try {
     const allWaterCount = await Water.find({
-      user: user.id,
+      user: user._id,
       localDate: date.localDate,
     });
 
     let totalDay = 0;
-    allWaterCount.forEach((i) => (totalDay += i.waterValue));
+    allWaterCount.forEach((i) => {
+      totalDay += i.waterValue;
+    });
 
-    if (totalDay >= Number(user.waterRate) * 1000)
-      return { allWaterCount, feasibility: 100, completed: true };
-
-    const feasibility = (totalDay / (Number(user.waterRate) * 1000)) * 100;
-    return { allWaterCount, feasibility, completed: false };
+    return { allWaterCount, totalDay };
   } catch (error) {
     console.error('Error getting total day water:', error);
     throw error;
@@ -84,9 +88,14 @@ export const getTotalDayWater = async (date, user) => {
 export const getTotalMonthWater = async (date, user) => {
   try {
     const allWaterCount = await Water.find({
-      user: user.id,
+      user: user._id,
       localMonth: date.localDate.slice(3),
     });
+
+    const totalMonth = allWaterCount.reduce(
+      (acc, item) => acc + item.waterValue,
+      0,
+    );
 
     const result = allWaterCount.reduce((acc, item) => {
       const key = item.localDate;
@@ -98,7 +107,6 @@ export const getTotalMonthWater = async (date, user) => {
     }, {});
 
     const sortedKeys = Object.keys(result).sort();
-
     const sortedResult = {};
     sortedKeys.forEach((key) => {
       sortedResult[key] = result[key].sort((a, b) =>
@@ -106,7 +114,7 @@ export const getTotalMonthWater = async (date, user) => {
       );
     });
 
-    return sortedResult;
+    return { totalMonth, waterCount: sortedResult };
   } catch (error) {
     console.error('Error getting total month water:', error);
     throw error;

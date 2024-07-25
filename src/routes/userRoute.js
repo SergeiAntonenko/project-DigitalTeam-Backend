@@ -1,25 +1,31 @@
 import { Router } from 'express';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
+  getAllUsersController,
   getUserByIdController,
   updateUserController,
-} from '../controllers/userController';
-import { userValidateBody } from '../middlewares/userValidateBody';
-import { updateUserShema } from '../validation/updateUserShema';
+} from '../controllers/userController.js';
+import { userValidateBody } from '../middlewares/userValidateBody.js';
+import { updateUserSchema } from '../validation/updateUserSchema.js';
 import { upload } from '../middlewares/multer.js';
 import userValidMongoId from '../middlewares/userValidMongoId.js';
-import { authenticate } from '../middlewares/authenticate.js';
+import { authenticate } from '../middlewares/authenticateUser.js';
 
-const userRouter = Router();
+const usersRouter = Router();
 
-userRouter.use('/user', authenticate);
+usersRouter.use('/', authenticate);
 
-userRouter
-  .route('/user/:userId')
-  .use(userValidMongoId)
-  .get(ctrlWrapper(getUserByIdController))
-  .patch(
-    upload.single('avatar'),
-    userValidateBody(updateUserShema),
-    ctrlWrapper(updateUserController),
-  );
+usersRouter.get('/count', ctrlWrapper(getAllUsersController));
+
+usersRouter.use('/:userId', userValidMongoId);
+
+usersRouter.get('/:current', ctrlWrapper(getUserByIdController));
+
+usersRouter.patch(
+  '/:update',
+  upload.single('avatar'),
+  userValidateBody(updateUserSchema),
+  ctrlWrapper(updateUserController),
+);
+
+export default usersRouter;
