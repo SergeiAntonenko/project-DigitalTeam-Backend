@@ -1,0 +1,30 @@
+type: object
+properties:
+  userId:
+    type: string
+    description: User ID
+    example: '65ca67e7ae7f10c88b598384'
+  date:
+    type: string
+    format: date
+    description: 'Date of the water consumption record'
+    example: '2024-07-24'
+  amount:
+    type: number
+    format: float
+    description: 'Amount of water consumed in liters'
+    example: 2.5
+  goal:
+    type: number
+    format: float
+    description: 'Daily water consumption goal in liters'
+    example: 3.0
+  percentage:
+    type: number
+    format: float
+    description: 'Percentage of the daily goal achieved'
+    example: 83.33
+required:
+  - userId
+  - amount
+  - date

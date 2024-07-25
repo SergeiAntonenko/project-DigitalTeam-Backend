@@ -11,10 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
-    {
-      "url": "https://example.com/api/v1"
+      "url": "https://project-digitalteam-backend.onrender.com"
     }
   ],
   "tags": [
@@ -50,24 +47,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "properties": {
-                  "email": {
-                    "description": "User's email",
-                    "type": "string",
-                    "example": "user@example.com"
-                  },
-                  "password": {
-                    "description": "User's password",
-                    "type": "string",
-                    "format": "password",
-                    "example": "password123"
-                  }
-                }
+                "$ref": "#/components/schemas/Auth"
               }
             }
           }
@@ -94,7 +74,7 @@
                       "example": "Successfully registered!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/user"
+                      "$ref": "#/components/schemas/User"
                     }
                   }
                 }
@@ -128,24 +108,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "properties": {
-                  "email": {
-                    "description": "User's email",
-                    "type": "string",
-                    "example": "user@example.com"
-                  },
-                  "password": {
-                    "description": "User's password",
-                    "type": "string",
-                    "format": "password",
-                    "example": "password123"
-                  }
-                }
+                "$ref": "#/components/schemas/Auth"
               }
             }
           }
@@ -357,48 +320,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "User ID"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/User"
                     },
-                    "name": {
-                      "type": "string",
-                      "description": "User's name"
-                    },
-                    "email": {
-                      "type": "string",
-                      "format": "email",
-                      "description": "User's email"
-                    },
-                    "gender": {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female",
-                        "other"
-                      ],
-                      "description": "User's gender"
-                    },
-                    "weight": {
-                      "type": "integer",
-                      "description": "User's weight in kilograms"
-                    },
-                    "activeTime": {
-                      "type": "integer",
-                      "description": "User's active time in sports in minutes"
-                    },
-                    "dailyWaterGoal": {
-                      "type": "integer",
-                      "description": "User's daily water goal in milliliters"
-                    },
-                    "avatar": {
-                      "type": "string",
-                      "format": "uri",
-                      "description": "URL to the user's avatar"
+                    {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "email",
+                        "gender"
+                      ]
                     }
-                  }
+                  ]
                 }
               }
             }
@@ -430,59 +364,21 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Joi Buben"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/User"
                   },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "john.doe@example.com"
-                  },
-                  "gender": {
-                    "type": "string",
-                    "enum": [
-                      "male",
-                      "female",
-                      "other"
-                    ],
-                    "description": "Gender of the user",
-                    "example": "male"
-                  },
-                  "weight": {
-                    "type": "integer",
-                    "format": "float",
-                    "description": "User`s weight in kg",
-                    "example": "75.5"
-                  },
-                  "activeTime": {
-                    "type": "integer",
-                    "format": "float",
-                    "description": "Active time for sports in hours",
-                    "example": "1.5"
-                  },
-                  "dailyWaterGoal": {
-                    "type": "integer",
-                    "format": "float",
-                    "description": "Daily water intake goal in milliliters",
-                    "example": 2
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URL of the user's avatar",
-                    "example": "https://example.com/avatar.png"
+                  {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "email",
+                      "gender",
+                      "weight",
+                      "activeTime",
+                      "dailyWaterGoal"
+                    ]
                   }
-                },
-                "required": [
-                  "name",
-                  "email",
-                  "gender",
-                  "weight",
-                  "activeTime",
-                  "dailyWaterGoal"
                 ]
               }
             }
@@ -494,7 +390,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -554,7 +450,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -576,17 +472,13 @@
     },
     "/users/count": {
       "get": {
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "tags": [
           "Users"
         ],
         "summary": "Get total number of registered users",
         "description": "Retrieve the total number of registered users in the application.",
         "operationId": "getTotalNumberOfUsers",
+        "security": [],
         "responses": {
           "200": {
             "description": "Total number of registered users",
@@ -634,30 +526,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "userId": {
-                    "type": "string",
-                    "description": "User ID",
-                    "example": "65ca67e7ae7f10c88b598384"
-                  },
-                  "amount": {
-                    "type": "integer",
-                    "description": "Amount of water consumed (in ml)",
-                    "example": 500
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "Date of consumption",
-                    "example": "2024-07-19"
-                  }
-                },
-                "required": [
-                  "userId",
-                  "amount",
-                  "date"
-                ]
+                "$ref": "#/components/schemas/Water"
               }
             }
           },
@@ -821,20 +690,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "amount": {
-                    "type": "integer",
-                    "description": "Amount of water consumed (in ml)",
-                    "example": 600
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "Date of consumption",
-                    "example": "2024-07-19"
-                  }
-                }
+                "$ref": "#/components/schemas/Water"
               }
             }
           },
@@ -899,32 +755,56 @@
       }
     },
     "schemas": {
-      "user": {
+      "User": {
         "type": "object",
-        "required": [
-          "name",
-          "password",
-          "gender"
-        ],
         "properties": {
-          "name": {
-            "description": "User's name",
+          "id": {
             "type": "string",
+            "description": "User ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
             "example": "Joe Buben"
           },
-          "password": {
-            "description": "User's password",
+          "email": {
             "type": "string",
-            "example": "123456789"
+            "format": "email",
+            "description": "User's email",
+            "example": "user@example.com"
           },
           "gender": {
-            "description": "User's gender identity",
             "type": "string",
             "enum": [
-              "man",
-              "woman"
+              "male",
+              "female",
+              "other"
             ],
-            "example": "woman"
+            "description": "User's gender identity",
+            "example": "female"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "float",
+            "description": "User's weight in kilograms",
+            "example": "75.5"
+          },
+          "activeTime": {
+            "type": "integer",
+            "format": "float",
+            "description": "User's active time in sports in minutes",
+            "example": "45"
+          },
+          "dailyWaterGoal": {
+            "type": "integer",
+            "description": "User's daily water goal in milliliters",
+            "example": "2000"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the user's avatar",
+            "example": "https://example.com/avatar.png"
           },
           "photo": {
             "description": "Link to user's photo",
@@ -940,6 +820,67 @@
             ]
           }
         }
+      },
+      "Auth": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "description": "User's email",
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "format": "password",
+            "minLength": 6,
+            "maxLength": 50,
+            "example": "password123"
+          }
+        }
+      },
+      "Water": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User ID",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the water consumption record",
+            "example": "2024-07-24"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Amount of water consumed in liters",
+            "example": 2.5
+          },
+          "goal": {
+            "type": "number",
+            "format": "float",
+            "description": "Daily water consumption goal in liters",
+            "example": 3
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float",
+            "description": "Percentage of the daily goal achieved",
+            "example": 83.33
+          }
+        },
+        "required": [
+          "userId",
+          "amount",
+          "date"
+        ]
       }
     },
     "responses": {

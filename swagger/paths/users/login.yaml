@@ -10,20 +10,7 @@ requestBody:
   content:
     application/json:
       schema:
-        type: object
-        required:
-          - email
-          - password
-        properties:
-          email:
-            description: "User's email"
-            type: string
-            example: 'user@example.com'
-          password:
-            description: "User's password"
-            type: string
-            format: password
-            example: 'password123'
+        $ref: ../../components/schemas/Auth.yaml
 responses:
   '200':
     description: 'User successfully logged in'

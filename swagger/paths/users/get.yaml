@@ -11,39 +11,14 @@ responses:
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            id:
-              type: string
-              description: User ID
-            name:
-              type: string
-              description: User's name
-            email:
-              type: string
-              format: email
-              description: User's email
-            gender:
-              type: string
-              enum:
-                - male
-                - female
-                - other
-              description: User's gender
-            weight:
-              type: integer
-              description: User's weight in kilograms
-            activeTime:
-              type: integer
-              description: User's active time in sports in minutes
-            dailyWaterGoal:
-              type: integer
-              description: User's daily water goal in milliliters
-            avatar:
-              type: string
-              format: uri
-              description: URL to the user's avatar
+          allOf:
+            - $ref: '../../components/schemas/User.yaml'
+            - type: object
+              required:
+                - name
+                - email
+                - gender
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':
-    $ref: ../../components/responses/500.yaml
+    $ref: '../../components/responses/500.yaml'

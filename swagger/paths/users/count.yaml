@@ -3,8 +3,7 @@ tags:
 summary: Get total number of registered users
 description: Retrieve the total number of registered users in the application.
 operationId: getTotalNumberOfUsers
-security:
-  - bearerAuth: []
+security: []
 responses:
   '200':
     description: Total number of registered users
