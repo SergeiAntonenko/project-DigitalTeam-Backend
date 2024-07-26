@@ -23,7 +23,23 @@ export const setupServer = () => {
     }),
   );
 
-  app.use(cors());
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://project-digitalteam-backend.onrender.com',
+  ];
+
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  };
+
+  app.use(cors(corsOptions));
   app.use(cookieParser());
 
   app.use(
