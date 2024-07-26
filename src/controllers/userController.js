@@ -19,6 +19,9 @@ export const getAllUsersController = async (req, res, next) => {
 
 export const getUserByIdController = async (req, res, next) => {
   const userId = req.user._id;
+  console.log(
+    `============================${userId}================================`,
+  );
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(404).json({
       data: 'ID not found',
