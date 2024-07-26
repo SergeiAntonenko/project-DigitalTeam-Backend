@@ -6,10 +6,6 @@ import { UsersCollection } from '../db/models/user.js';
 export const authenticate = async (req, res, next) => {
   const authHeader = req.get('Authorization');
 
-  console.log(
-    `====================auth========${authHeader}================================`,
-  );
-
   if (!authHeader) {
     next(createHttpError(401, 'Please provide Authorization header'));
     return;
@@ -24,10 +20,6 @@ export const authenticate = async (req, res, next) => {
   }
 
   const session = await SessionsCollection.findOne({ accessToken: token });
-
-  console.log(
-    `=================session===========${session}================================`,
-  );
 
   if (!session) {
     next(createHttpError(401, 'Session not found'));
@@ -49,10 +41,6 @@ export const authenticate = async (req, res, next) => {
   }
 
   req.user = user;
-
-  console.log(
-    `=================user===========${user}================================`,
-  );
 
   next();
 };
