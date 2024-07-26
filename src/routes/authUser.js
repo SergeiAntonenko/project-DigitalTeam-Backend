@@ -34,11 +34,7 @@ authRouter.post(
 
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 
-authRouter.post(
-  '/refresh-token',
-  authenticate,
-  ctrlWrapper(refreshUserSessionController),
-);
+authRouter.post('/refresh-token', ctrlWrapper(refreshUserSessionController));
 
 authRouter.post(
   '/send-reset-email',
