@@ -24,7 +24,7 @@ export const setupServer = () => {
   );
 
   const corsOptions = {
-    origin: true,
+    origin: 'https://project-digital-team.vercel.app/',
     credentials: true,
   };
 
