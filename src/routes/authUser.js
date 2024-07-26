@@ -36,7 +36,7 @@ authRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 authRouter.post(
   '/refresh-token',
-  // authenticate,
+  authenticate,
   ctrlWrapper(refreshUserSessionController),
 );
 
