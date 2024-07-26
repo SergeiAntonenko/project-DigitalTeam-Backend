@@ -23,7 +23,18 @@ export const setupServer = () => {
     }),
   );
 
-  app.use(cors());
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  };
+
+  app.use(cors(corsOptions));
   app.use(cookieParser());
 
   app.use(
