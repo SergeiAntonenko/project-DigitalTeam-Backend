@@ -100,7 +100,10 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   });
 
   console.log(
-    `==========================req========${session}===============================`,
+    `==========================req========${sessionId}===============================`,
+  );
+  console.log(
+    `==========================req========${refreshToken}===============================`,
   );
 
   if (!session) {
