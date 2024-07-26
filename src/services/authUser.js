@@ -99,6 +99,10 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     refreshToken,
   });
 
+  console.log(
+    `==========================req========${session}===============================`,
+  );
+
   if (!session) {
     throw createHttpError(401, 'Session not found');
   }
@@ -111,6 +115,10 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   }
 
   const newSession = createSession();
+
+  console.log(
+    `==========================req========${newSession}===============================`,
+  );
 
   await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
 
