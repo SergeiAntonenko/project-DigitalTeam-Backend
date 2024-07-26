@@ -23,11 +23,6 @@ export const setupServer = () => {
     }),
   );
 
-  const allowedOrigins = [
-    'http://localhost:5173',
-    'https://project-digitalteam-backend.onrender.com',
-  ];
-
   const corsOptions = {
     origin: true,
     credentials: true,
