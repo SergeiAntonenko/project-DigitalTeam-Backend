@@ -23,6 +23,8 @@ export const setupServer = () => {
     }),
   );
 
+  const allowedOrigins = ['http://localhost:5173', 'http://anotherdomain.com'];
+
   const corsOptions = {
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
