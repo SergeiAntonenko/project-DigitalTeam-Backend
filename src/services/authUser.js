@@ -40,7 +40,6 @@ export const registerUser = async (payload) => {
 
   return {
     session,
-    user,
   };
 };
 
@@ -68,7 +67,6 @@ export const loginUser = async (payload) => {
 
   return {
     session,
-    user,
   };
 };
 
