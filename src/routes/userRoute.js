@@ -17,9 +17,9 @@ usersRouter.use('/', authenticate);
 
 usersRouter.get('/count', ctrlWrapper(getAllUsersController));
 
-usersRouter.use('/:userId', userValidMongoId);
+usersRouter.get('/current', authenticate, ctrlWrapper(getUserByIdController));
 
-usersRouter.get('/:current', ctrlWrapper(getUserByIdController));
+usersRouter.use('/:userId', userValidMongoId);
 
 usersRouter.patch(
   '/:update',

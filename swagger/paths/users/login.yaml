@@ -16,12 +16,12 @@ requestBody:
           - password
         properties:
           email:
-            description: "User's email"
             type: string
+            description: "User's email"
             example: 'user@example.com'
           password:
-            description: "User's password"
             type: string
+            description: "User's password"
             format: password
             example: 'password123'
 responses:

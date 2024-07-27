@@ -21,15 +21,31 @@ import {
 } from '../utils/googleOAuth2.js';
 
 export const registerUser = async (payload) => {
-  const user = await UsersCollection.findOne({ email: payload.email });
-  if (user) throw createHttpError(409, 'Email in use');
+  const findUser = await UsersCollection.findOne({ email: payload.email });
+  if (findUser) throw createHttpError(409, 'Email in use');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  return await UsersCollection.create({
+  const user = await UsersCollection.create({
     ...payload,
     password: encryptedPassword,
   });
+
+  await SessionsCollection.deleteOne({ userId: user._id });
+  const accessToken = randomBytes(30).toString('base64');
+  const refreshToken = randomBytes(30).toString('base64');
+
+  const session = await SessionsCollection.create({
+    userId: user._id,
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+  });
+
+  return {
+    session,
+  };
 };
 
 export const loginUser = async (payload) => {
@@ -56,7 +72,6 @@ export const loginUser = async (payload) => {
 
   return {
     session,
-    user,
   };
 };
 

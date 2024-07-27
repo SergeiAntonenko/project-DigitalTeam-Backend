@@ -17,17 +17,7 @@ requestBody:
   content:
     application/json:
       schema:
-        type: object
-        properties:
-          amount:
-            type: integer
-            description: Amount of water consumed (in ml)
-            example: 600
-          date:
-            type: string
-            format: date
-            description: Date of consumption
-            example: '2024-07-19'
+        $ref: ../../../components/schemas/Water.yaml
   required: false
 responses:
   '200':

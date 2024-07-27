@@ -15,12 +15,15 @@ import { generateAuthUrl } from '../utils/googleOAuth2.js';
 import { loginOrSignupWithGoogle } from '../services/authUser.js';
 
 export const registerUserController = async (req, res) => {
-  const user = await registerUser(req.body);
+  const { session, user } = await registerUser(req.body);
 
   res.json({
     status: 201,
     message: 'Successfully registered a user!',
-    data: user,
+    data: {
+      accessToken: session.accessToken,
+      user,
+    },
   });
 };
 
@@ -30,11 +33,15 @@ export const loginUserController = async (req, res) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
+    sameSite: 'None',
+    secure: true,
   });
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
+    sameSite: 'None',
+    secure: true,
   });
 
   res.json({
@@ -62,17 +69,21 @@ const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
+    secure: true,
+    sameSite: 'None',
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
+    secure: true,
+    sameSite: 'None',
   });
 };
 
 export const refreshUserSessionController = async (req, res) => {
   const session = await refreshUsersSession({
-    sessionId: req.cookies.sessionId,
     refreshToken: req.cookies.refreshToken,
+    sessionId: req.cookies.sessionId,
   });
 
   setupSession(res, session);
