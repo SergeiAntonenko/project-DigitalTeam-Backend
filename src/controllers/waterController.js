@@ -8,7 +8,6 @@ import {
 
 export const addWaterController = async (req, res, next) => {
   try {
-    console.log(req.body);
     const waterCount = await addWater(req.body, req.user);
 
     res.status(201).json({
