@@ -22,22 +22,8 @@ export const dateNormalizer = (dateValue) => {
 
 export const addWater = async (waterData, user) => {
   try {
-    const currentDate = new Date();
-    const localDate = currentDate.toLocaleDateString('en-GB'); // Локальная дата в формате dd/mm/yyyy
-    const localTime = currentDate.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-    }); // Локальное время в формате hh:mm
-    const localMonth = currentDate.toLocaleString('en-GB', { month: 'long' }); // Локальный месяц
-
-    const waterCount = await Water.create({
-      ...waterData,
-      localDate,
-      localTime,
-      localMonth,
-      user: user.id,
-    });
-
+    const localMonth = waterData.localDate.slice(3);
+    const waterCount = await Water.create({ ...waterData, localMonth, user });
     return waterCount;
   } catch (error) {
     console.error('Error adding water:', error);
