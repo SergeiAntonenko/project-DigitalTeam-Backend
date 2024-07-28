@@ -13,16 +13,15 @@ import { authenticate } from '../middlewares/authenticateUser.js';
 
 const usersRouter = Router();
 
-usersRouter.use('/', authenticate);
-
 usersRouter.get('/count', ctrlWrapper(getAllUsersController));
 
 usersRouter.get('/current', authenticate, ctrlWrapper(getUserByIdController));
 
-usersRouter.use('/:userId', userValidMongoId);
+usersRouter.use('/:userId', authenticate, userValidMongoId);
 
 usersRouter.patch(
   '/:update',
+  authenticate,
   upload.single('avatar'),
   userValidateBody(updateUserSchema),
   ctrlWrapper(updateUserController),
