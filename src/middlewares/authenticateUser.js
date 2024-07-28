@@ -7,7 +7,7 @@ export const authenticate = async (req, res, next) => {
   const authHeader = req.get('Authorization');
 
   console.log(
-    `=================auth=================${authHeader}============`,
+    `=================auth123=================${authHeader}============`,
   );
 
   if (!authHeader) {
@@ -18,6 +18,10 @@ export const authenticate = async (req, res, next) => {
   const bearer = authHeader.split(' ')[0];
   const token = authHeader.split(' ')[1];
 
+  console.log(`=================bearer=================${bearer}============`);
+
+  console.log(`=================token=================${token}============`);
+
   if (bearer !== 'Bearer' || !token) {
     next(createHttpError(401, 'Auth header should be of type Bearer'));
     return;
@@ -26,7 +30,7 @@ export const authenticate = async (req, res, next) => {
   const session = await SessionsCollection.findOne({ accessToken: token });
 
   console.log(
-    `=================session=================${session}============`,
+    `=================session123=================${session}============`,
   );
 
   if (!session) {
