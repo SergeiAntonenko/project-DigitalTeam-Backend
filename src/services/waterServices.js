@@ -70,7 +70,7 @@ export const getTotalDayWater = async (date, user) => {
   try {
     const allWaterCount = await Water.find({
       user: user._id,
-      localDate: date.localDate,
+      localDate: date,
     });
 
     let totalDay = 0;

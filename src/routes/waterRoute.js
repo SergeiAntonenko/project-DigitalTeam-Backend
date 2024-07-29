@@ -22,22 +22,23 @@ waterRouter.use(authenticate);
 // Додає новий запис води
 waterRouter.post('/add', checkWaterAmountMiddleware, addWaterController);
 
-// Оновлює або видаляє запис води за ID
-waterRouter
-  .route('/:id')
-  .patch(checkIdMiddleware, checkWaterAmountMiddleware, updateWaterController)
-  .delete(checkIdMiddleware, deleteWaterController);
-
 // Отримання загальних даних води за день і місяць
 waterRouter.get(
   '/daily',
   checkAllWaterAmountMiddleware,
   getTotalDayWaterController,
 );
+
 waterRouter.get(
   '/monthly',
   checkAllWaterAmountMiddleware,
   getTotalMonthWaterController,
 );
+
+// Оновлює або видаляє запис води за ID
+waterRouter
+  .route('/:id')
+  .patch(checkIdMiddleware, checkWaterAmountMiddleware, updateWaterController)
+  .delete(checkIdMiddleware, deleteWaterController);
 
 export default waterRouter;

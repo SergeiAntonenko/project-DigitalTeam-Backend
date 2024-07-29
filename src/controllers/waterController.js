@@ -67,11 +67,10 @@ export const updateWaterController = async (req, res, next) => {
 };
 
 export const getTotalDayWaterController = async (req, res, next) => {
+  const { date } = req.query;
+
   try {
-    const { allWaterCount, totalDay } = await getTotalDayWater(
-      req.body,
-      req.user,
-    );
+    const { allWaterCount, totalDay } = await getTotalDayWater(date, req.user);
 
     res.status(200).json({
       msg: 'You get your total amount of water for this day!',
