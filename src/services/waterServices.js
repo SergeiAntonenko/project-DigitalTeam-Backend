@@ -26,7 +26,6 @@ export const addWater = async (waterData, user) => {
     const waterCount = await Water.create({ ...waterData, localMonth, user });
     return waterCount;
   } catch (error) {
-    console.error('Error adding water:', error);
     throw error;
   }
 };
@@ -36,7 +35,6 @@ export const getWaterCountId = async (id) => {
     const waterCount = await Water.findById(id);
     return waterCount;
   } catch (error) {
-    console.error('Error getting water by ID:', error);
     throw error;
   }
 };
@@ -46,7 +44,6 @@ export const deleteWaterCountId = async (id) => {
     const waterData = await Water.findByIdAndDelete(id);
     return waterData;
   } catch (error) {
-    console.error('Error deleting water by ID:', error);
     throw error;
   }
 };
@@ -61,7 +58,6 @@ export const updateWaterCountId = async (id, waterData) => {
     );
     return waterCount;
   } catch (error) {
-    console.error('Error updating water by ID:', error);
     throw error;
   }
 };
@@ -80,7 +76,6 @@ export const getTotalDayWater = async (date, user) => {
 
     return { allWaterCount, totalDay };
   } catch (error) {
-    console.error('Error getting total day water:', error);
     throw error;
   }
 };
@@ -116,7 +111,6 @@ export const getTotalMonthWater = async (date, user) => {
 
     return { totalMonth, waterCount: sortedResult };
   } catch (error) {
-    console.error('Error getting total month water:', error);
     throw error;
   }
 };

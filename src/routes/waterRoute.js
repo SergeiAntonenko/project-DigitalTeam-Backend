@@ -19,10 +19,8 @@ const waterRouter = Router();
 
 waterRouter.use(authenticate);
 
-// Додає новий запис води
 waterRouter.post('/add', checkWaterAmountMiddleware, addWaterController);
 
-// Отримання загальних даних води за день і місяць
 waterRouter.get(
   '/daily',
   checkAllWaterAmountMiddleware,
@@ -35,7 +33,6 @@ waterRouter.get(
   getTotalMonthWaterController,
 );
 
-// Оновлює або видаляє запис води за ID
 waterRouter
   .route('/:id')
   .patch(checkIdMiddleware, checkWaterAmountMiddleware, updateWaterController)
