@@ -20,7 +20,7 @@ usersRouter.get('/current', authenticate, ctrlWrapper(getUserByIdController));
 usersRouter.use('/:userId', authenticate, userValidMongoId);
 
 usersRouter.patch(
-  '/:update',
+  '/update',
   authenticate,
   upload.single('avatar'),
   userValidateBody(updateUserSchema),

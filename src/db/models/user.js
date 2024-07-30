@@ -32,6 +32,7 @@ const usersSchema = new Schema(
     dailyWaterGoal: {
       type: Number,
       required: false,
+      default: 1.5,
     },
     userId: {
       type: Schema.ObjectId,
