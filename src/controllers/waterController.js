@@ -83,9 +83,10 @@ export const getTotalDayWaterController = async (req, res, next) => {
 };
 
 export const getTotalMonthWaterController = async (req, res, next) => {
+  const { month } = req.query;
   try {
-    const { totalMonth, waterCount } = await getTotalMonthWater(
-      req.body,
+    const { totalMonth, waterCount, dailyTotals } = await getTotalMonthWater(
+      month,
       req.user,
     );
 
@@ -93,6 +94,7 @@ export const getTotalMonthWaterController = async (req, res, next) => {
       msg: 'You get your total amount of water for this month!',
       totalMonth,
       waterCount,
+      dailyTotals,
     });
   } catch (e) {
     next(e);

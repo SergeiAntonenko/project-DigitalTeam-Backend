@@ -80,11 +80,11 @@ export const getTotalDayWater = async (date, user) => {
   }
 };
 
-export const getTotalMonthWater = async (date, user) => {
+export const getTotalMonthWater = async (month, user) => {
   try {
     const allWaterCount = await Water.find({
       user: user._id,
-      localMonth: date.localDate.slice(3),
+      localMonth: month,
     });
 
     const totalMonth = allWaterCount.reduce(
@@ -103,13 +103,21 @@ export const getTotalMonthWater = async (date, user) => {
 
     const sortedKeys = Object.keys(result).sort();
     const sortedResult = {};
+    const dailyTotals = {};
+
     sortedKeys.forEach((key) => {
-      sortedResult[key] = result[key].sort((a, b) =>
+      const sortedItems = result[key].sort((a, b) =>
         a.localTime.localeCompare(b.localTime),
+      );
+      sortedResult[key] = sortedItems;
+
+      dailyTotals[key] = sortedItems.reduce(
+        (acc, item) => acc + item.waterValue,
+        0,
       );
     });
 
-    return { totalMonth, waterCount: sortedResult };
+    return { totalMonth, waterCount: sortedResult, dailyTotals };
   } catch (error) {
     throw error;
   }
