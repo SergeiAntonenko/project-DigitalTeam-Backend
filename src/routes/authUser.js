@@ -16,7 +16,7 @@ import { requestResetEmailController } from '../controllers/authUser.js';
 
 import { resetPasswordSchema } from '../validation/authUser.js';
 import { resetPasswordController } from '../controllers/authUser.js';
-import { authenticate } from '../middlewares/authenticateUser.js';
+// import { authenticate } from '../middlewares/authenticateUser.js';
 
 import { getGoogleOAuthUrlController } from '../controllers/authUser.js';
 
