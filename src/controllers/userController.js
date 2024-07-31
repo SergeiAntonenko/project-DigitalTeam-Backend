@@ -40,7 +40,7 @@ export const getUserByIdController = async (req, res, next) => {
 };
 
 export const updateUserController = async (req, res, next) => {
-  const { update } = req.params;
+  const userId = req.user._id;
   const photo = req.file;
 
   if (photo) {
@@ -48,7 +48,7 @@ export const updateUserController = async (req, res, next) => {
     await saveFile(photo);
   }
 
-  const result = await updateUser(update, req.body);
+  const result = await updateUser(userId, req.body.data);
 
   if (!result) {
     next(createHttpError(404, 'User not found'));

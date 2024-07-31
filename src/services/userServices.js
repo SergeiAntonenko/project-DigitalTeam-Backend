@@ -16,6 +16,7 @@ export const updateUser = async (userId, payload, options = {}) => {
       ...options,
     },
   );
+
   if (!user || !user.value) {
     throw createHttpError(404, 'User not found');
   }

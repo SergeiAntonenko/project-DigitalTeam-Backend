@@ -17,8 +17,6 @@ usersRouter.get('/count', ctrlWrapper(getAllUsersController));
 
 usersRouter.get('/current', authenticate, ctrlWrapper(getUserByIdController));
 
-usersRouter.use('/:userId', authenticate, userValidMongoId);
-
 usersRouter.patch(
   '/update',
   authenticate,
@@ -26,5 +24,7 @@ usersRouter.patch(
   userValidateBody(updateUserSchema),
   ctrlWrapper(updateUserController),
 );
+
+usersRouter.use('/:userId', authenticate, userValidMongoId);
 
 export default usersRouter;
