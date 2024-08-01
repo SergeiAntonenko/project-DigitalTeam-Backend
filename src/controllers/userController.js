@@ -43,8 +43,9 @@ export const getUserByIdController = async (req, res, next) => {
 
 export const updateUserController = async (req, res, next) => {
   const userId = req.user._id;
+  const { avatar, ...restData } = req.body.data;
 
-  const result = await updateUser(userId, req.body.data);
+  const result = await updateUser(userId, restData);
 
   if (!result) {
     next(createHttpError(404, 'User not found'));

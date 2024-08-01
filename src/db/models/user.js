@@ -17,9 +17,9 @@ const usersSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ['male', 'woman', 'other'],
+      enum: ['Man', 'Woman', 'other'],
       required: true,
-      default: 'woman',
+      default: 'Woman',
     },
     weight: {
       type: Number,
